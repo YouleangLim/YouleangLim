@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation Example</title>
+    <style>
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #locationOutput {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Geolocation Example</h1>
+    </header>
+
+    <section>
+        <p>Click the button below to get your current location.</p>
+        
+        <!-- Button to get location -->
+        <button onclick="getLocation()">Get My Location</button>
+
+        <!-- Output area for location information -->
+        <div id="locationOutput"></div>
+    </section>
+
+    <footer>
+        <p>Contact me at: limyouleang2822@gmail.com</p>
+    </footer>
+
+    <script>
+        // Function to get the user's location
+        function getLocation() {
+            var locationOutput = document.getElementById('locationOutput');
+
+            // Check if the Geolocation API is supported
+            if (navigator.geolocation) {
+                // Get the current position
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                locationOutput.innerHTML = "Getting your location...";
+            } else {
+                locationOutput.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        // Function to display the user's position
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var accuracy = position.coords.accuracy;
+            
+            document.getElementById('locationOutput').innerHTML =
+                "Latitude: " + latitude + "<br>" +
+                "Longitude: " + longitude + "<br>" +
+                "Accuracy: " + accuracy + " meters";
+        }
+
+        // Function to handle errors
+        function showError(error) {
+            var locationOutput = document.getElementById('locationOutput');
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    locationOutput.innerHTML = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    locationOutput.innerHTML = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    locationOutput.innerHTML = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    locationOutput.innerHTML = "An unknown error occurred.";
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

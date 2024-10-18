@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Drawing App</title>
+    <style>
+        /* Style for the canvas */
+        canvas {
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+
+        /* Style for the container */
+        #canvasContainer {
+            margin-top: 20px;
+        }
+
+        /* Simple button styling */
+        button {
+            margin: 10px 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Basic Drawing App</h1>
+    </header>
+
+    <section>
+        <p>Draw on the canvas with your mouse. Use the "Clear" button to reset the canvas.</p>
+
+        <div id="canvasContainer">
+            <!-- Canvas for Drawing -->
+            <canvas id="drawingCanvas" width="600" height="400"></canvas>
+        </div>
+
+        <!-- Clear Button -->
+        <button onclick="clearCanvas()">Clear</button>
+    </section>
+
+    <footer>
+        <p>Contact me at: limyouleang2822@gmail.com</p>
+    </footer>
+
+    <script>
+        // Get the canvas and its context
+        var canvas = document.getElementById('drawingCanvas');
+        var ctx = canvas.getContext('2d');
+
+        var drawing = false; // Track if the user is currently drawing
+
+        // Function to start drawing
+        function startDrawing(event) {
+            drawing = true;
+            ctx.beginPath(); // Start a new path for drawing
+            ctx.moveTo(event.offsetX, event.offsetY); // Move to the mouse position
+        }
+
+        // Function to draw when the mouse is moved
+        function draw(event) {
+            if (!drawing) return; // Only draw if the mouse is pressed
+            ctx.lineTo(event.offsetX, event.offsetY); // Draw a line to the new mouse position
+            ctx.strokeStyle = 'black'; // Color of the stroke
+            ctx.lineWidth = 2; // Width of the stroke
+            ctx.stroke(); // Draw the path
+        }
+
+        // Function to stop drawing
+        function stopDrawing() {
+            drawing = false;
+            ctx.closePath(); // Close the current path
+        }
+
+        // Function to clear the canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas
+        }
+
+        // Event listeners for mouse actions
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+    </script>
+</body>
+</html>

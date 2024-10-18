@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Theme Color Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease; /* Smooth transition for background color */
+        }
+        
+        select {
+            margin: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Select a Theme Color</h1>
+    </header>
+
+    <section>
+        <p>Choose a background color for this webpage:</p>
+        
+        <!-- Color selection dropdown -->
+        <select id="colorPicker" onchange="changeColor()">
+            <option value="">Select a color</option>
+            <option value="lightblue">Light Blue</option>
+            <option value="lightgreen">Light Green</option>
+            <option value="lightcoral">Light Coral</option>
+            <option value="lightgoldenrodyellow">Light Goldenrod Yellow</option>
+            <option value="lightgray">Light Gray</option>
+            <option value="lightpink">Light Pink</option>
+        </select>
+    </section>
+
+    <footer>
+        <p>Contact me at: limyouleang2822@gmail.com</p>
+    </footer>
+
+    <script>
+        // Function to change the background color
+        function changeColor() {
+            var selectedColor = document.getElementById('colorPicker').value;
+            document.body.style.backgroundColor = selectedColor; // Change background color
+            localStorage.setItem('bgColor', selectedColor); // Save the color to localStorage
+        }
+
+        // Load the saved color from localStorage on page load
+        window.onload = function() {
+            var savedColor = localStorage.getItem('bgColor'); // Get saved color
+            if (savedColor) {
+                document.body.style.backgroundColor = savedColor; // Apply saved color
+                document.getElementById('colorPicker').value = savedColor; // Set the dropdown to the saved color
+            }
+        };
+    </script>
+</body>
+</html>

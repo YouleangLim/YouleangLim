@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bouncing Ball Game</title>
+    <style>
+        /* Style for the canvas */
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bouncing Ball Game</h1>
+    </header>
+
+    <section>
+        <p>Watch the ball bounce around the canvas! It changes color every time it hits a wall.</p>
+
+        <!-- Canvas for the Game -->
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+    </section>
+
+    <footer>
+        <p>Contact me at: limyouleang2822@gmail.com</p>
+    </footer>
+
+    <script>
+        // Get the canvas and its context
+        var canvas = document.getElementById('gameCanvas');
+        var ctx = canvas.getContext('2d');
+
+        // Ball properties
+        var ballRadius = 20;
+        var x = canvas.width / 2; // Starting x position
+        var y = canvas.height / 2; // Starting y position
+        var dx = 4; // Change in x (speed)
+        var dy = 3; // Change in y (speed)
+        var ballColor = getRandomColor(); // Initial ball color
+
+        // Function to generate a random color
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Function to draw the ball
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(x, y, ballRadius, 0, Math.PI * 2); // Draw circle
+            ctx.fillStyle = ballColor; // Ball color
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Function to update the canvas with each frame
+        function draw() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the ball
+            drawBall();
+
+            // Bounce off the left and right walls
+            if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+                dx = -dx; // Reverse direction
+                ballColor = getRandomColor(); // Change color
+            }
+
+            // Bounce off the top and bottom walls
+            if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+                dy = -dy; // Reverse direction
+                ballColor = getRandomColor(); // Change color
+            }
+
+            // Move the ball
+            x += dx;
+            y += dy;
+
+            // Call draw function again for the next frame
+            requestAnimationFrame(draw);
+        }
+
+        // Start the animation
+        draw();
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Webpage</title>
+    <style>
+        /* Style for the media section */
+        .media-controls {
+            margin-top: 20px;
+        }
+
+        .media-controls button {
+            padding: 10px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .volume-control {
+            width: 150px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to LeanGs Webpage</h1>
+    </header>
+    
+    <section>
+        <h2>About Me</h2>
+        <p>Hi, I'm LeanG. I'm passionate about learning new things and love to spend time reading, exploring different ideas, and developing my skills. Currently, I’m working on expanding my knowledge in web development and other areas of interest.</p>
+    </section>
+
+    <h2>3 Things I Enjoy About Reading:</h2>
+    <ul>
+        <li>It broadens my knowledge on various topics.</li>
+        <li>It helps me relax and reduces stress.</li>
+        <li>It sparks my imagination and creativity.</li>
+    </ul>
+
+    <!-- Section with Embedded YouTube Video and Audio File with Custom Controls -->
+    <section>
+        <h2>My Favorite Hobby: Reading</h2>
+        
+        <!-- Embedded YouTube Video -->
+        <h3>Related YouTube Video:</h3>
+        <div>
+            <div id="player"></div>
+        </div>
+
+        <!-- Custom Video Controls -->
+        <div class="media-controls">
+            <button onclick="playVideo()">Play</button>
+            <button onclick="pauseVideo()">Pause</button>
+            <label for="volume">Volume:</label>
+            <input type="range" id="volume" class="volume-control" min="0" max="100" step="1" onchange="setVolume(this.value)">
+        </div>
+
+        <!-- Embedded Audio File with Custom Controls -->
+        <h3>Listen to My Favorite Audio:</h3>
+        <audio id="audioFile" controls>
+            <source src="MinOsAlai.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+
+    <footer>
+        <p>Contact me at: limyouleang2822@gmail.com</p>
+    </footer>
+
+    <script>
+        var player;
+
+        // Load the YouTube Iframe API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // This function creates an <iframe> and YouTube player after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: 'XVY-7tJNYGI', // Use your YouTube video ID here
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        // The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            console.log("Player is ready");
+        }
+
+        // Play the video
+        function playVideo() {
+            player.playVideo();
+        }
+
+        // Pause the video
+        function pauseVideo() {
+            player.pauseVideo();
+        }
+
+        // Set volume for the video
+        function setVolume(volume) {
+            player.setVolume(volume);
+        }
+    </script>
+</body>
+</html>
